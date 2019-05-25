@@ -48,6 +48,11 @@ public class Knapsack {
         endTime = System.nanoTime();
         System.out.println((endTime - startTime) / 1000000 + "ms");  //divide by 1000000 to get milliseconds.
 
+        startTime = System.nanoTime();
+        System.out.println(solution.knapsackBottomUp1D(items, maxWeight));
+        endTime = System.nanoTime();
+        System.out.println((endTime - startTime) / 1000000 + "ms");  //divide by 1000000 to get milliseconds.
+
     }
 
     public Item[] initItems(int numItems, int maxWeight, int maxValue) {
@@ -62,7 +67,7 @@ public class Knapsack {
     }
 
     /*
-    So this is a pretty bad solution, it's pretty easy to see that it's O(n^2) for time and that the space is O(n). For 30 items it took my 6700k 2.4 seconds to compute Let's see how much better we may be able to do.
+    So this is a pretty bad solution, it's pretty easy to see that it's O(2^n) for time and that the space is O(n). For 30 items it took my 6700k 2.4 seconds to compute Let's see how much better we may be able to do.
     This algorithm also has a MAJOR issue. It won't get you the optimal solution. Since it is only looking at what items are left and the space you have left.
      */
     public int knapsackBruteForceEntry(Item[] items, int weight) {
@@ -132,16 +137,37 @@ public class Knapsack {
                 // or the previous item with the weight index that would be without the previous item plus the previous item's value
                 // I have added a print statement to better visualize how this works, please note that if you want to accurately measure computation time then you should remove the print statements
                 if(items[itemIndex-1].weight <= weightIndex){
-                    cache[itemIndex][weightIndex] = Math.max(cache[itemIndex-1][weightIndex], cache[itemIndex-1][weightIndex-items[itemIndex-1].weight] + items[itemIndex-1].value);
+                    cache[itemIndex][weightIndex] = Math.max(cache[itemIndex-1][weightIndex], cache[itemIndex-1][weightIndex-items[itemIndex-1].weight] + items[itemIndex - 1].value);
                 } else {
                     cache[itemIndex][weightIndex] = cache[itemIndex-1][weightIndex]; // If the item's weight is too much then we wouldn't be able to add it and so set this value to the value of the item's before it
                 }
-                System.out.printf( "%03d ", cache[itemIndex][weightIndex]);
+                //System.out.printf( "%03d ", cache[itemIndex][weightIndex]);
             }
-            System.out.println();
+            //System.out.println();
         }
 
         return cache[items.length][maxWeight];
+    }
+
+    /*
+    In the previous bottom up solution we were able to determine which items were included for the optimal solution, in this case we are simply finding the optimal solution without knowing any of the items in it.
+     */
+    public int knapsackBottomUp1D(Item[] items, int maxWeight){
+        int[] cache = new int[maxWeight + 1];
+
+        for(Item item: items){
+            int[] weightCache = new int[maxWeight + 1];
+            for(int weightIndex = 0; weightIndex <= maxWeight; weightIndex++){
+                if(item.weight <= weightIndex){
+                    weightCache[weightIndex] = Math.max(cache[weightIndex], cache[weightIndex - item.weight] + item.value);
+                } else {
+                    weightCache[weightIndex] = cache[weightIndex];
+                }
+                cache = weightCache;
+            }
+        }
+
+        return cache[maxWeight];
     }
 
 }
