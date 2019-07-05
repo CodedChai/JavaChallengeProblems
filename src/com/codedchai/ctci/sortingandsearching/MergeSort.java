@@ -2,10 +2,10 @@ package com.codedchai.ctci.sortingandsearching;
 
 import java.util.Random;
 
-public class MegeSort {
+public class MergeSort {
 
     public static void main(String[] args){
-        MegeSort ms = new MegeSort();
+        MergeSort ms = new MergeSort();
         Random random = new Random();
 
         int[] list = new int[1000];
