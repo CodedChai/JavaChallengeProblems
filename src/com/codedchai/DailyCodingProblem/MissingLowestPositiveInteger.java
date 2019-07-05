@@ -1,5 +1,8 @@
 package com.codedchai.DailyCodingProblem;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class MissingLowestPositiveInteger {
 
     public static void main(String[] args){
@@ -24,19 +27,27 @@ public class MissingLowestPositiveInteger {
 
         System.out.println(lowestPositiveInt);
 
-        lowestPositiveInt = 1;
-        int closeToLowestInInput = 2;
-        int finalIndex = 0;
-        for(int i = 0; i < input.length; i++){
-            int temp = input[i];
+        System.out.println(missingNumber(input));
 
-            if(temp == finalIndex){
 
+    }
+
+    static int missingNumber(int a[]){
+        Map<Integer, Integer> map = new LinkedHashMap<>();
+
+        for(int i = 0; i < a.length; i++){
+            if(a[i] > 0){
+                map.put(a[i], map.get(a[i]) == null ? 1 : map.get(a[i]) + 1);
             }
-
         }
 
-
+        int index = 1;
+        while(true){
+            if(!map.containsKey(index)){
+                return index;
+            }
+            index++;
+        }
     }
 
 }
