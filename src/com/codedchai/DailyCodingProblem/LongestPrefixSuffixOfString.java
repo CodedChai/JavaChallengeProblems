@@ -31,7 +31,7 @@ public class LongestPrefixSuffixOfString {
 
         }
 
-        return  - 1;
+        return -1;
 
     }
 
