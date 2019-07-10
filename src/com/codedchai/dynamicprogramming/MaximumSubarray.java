@@ -1,7 +1,9 @@
 package com.codedchai.dynamicprogramming;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.Optional;
+import java.util.Queue;
 
 public class MaximumSubarray {
 
@@ -9,6 +11,8 @@ public class MaximumSubarray {
         int[] array = {1,2,-3,-4,2,7,-2,3};
 
         MaximumSubarray maximumSubarray = new MaximumSubarray();
+        String string = "asdfb";
+
 
         System.out.println("The maximum subarray is: " + maximumSubarray.findMaximumSubarray(array));
     }
