@@ -16,10 +16,6 @@ public class WordLadder {
         System.out.println("Total length: " + wordLadder.ladderLength("dog", "hit", wordList));
         System.out.println("Total length: " + wordLadder.ladderLength("dog", "lol", wordList));
 
-
-        System.out.println("-------------------------------------------------");
-        System.out.println("Bidirectional Results");
-
     }
 
 
@@ -57,59 +53,10 @@ public class WordLadder {
                     searchQueue.add(new SimpleEntry<>(word, currentSearch.getValue() + 1));
                     visited.put(word, true);
                 }
-
             }
-
-
         }
-
         return -1;
     }
-
-
-    public int bidirectionalLadderLength(String beginWord, String endWord, List<String> wordList){
-
-
-        Queue<SimpleEntry<String, Integer>> searchQueue = new LinkedList<>();
-        Map<String, Boolean> visited = new HashMap<>();
-
-        searchQueue.add( new SimpleEntry<>(beginWord, 1));
-        visited.put(beginWord, true);
-
-        HashMap<String, ArrayList<String>> allPossibleVisitations = new HashMap<>();
-
-        for(String word : wordList){
-            allPossibleVisitations.put(word, getPossibleVisitationsForWord(word, wordList));
-        }
-
-
-        while(!searchQueue.isEmpty()){
-
-            SimpleEntry<String, Integer> currentSearch = searchQueue.poll();
-
-            System.out.println("Visiting word: " + currentSearch.getKey() + " at depth: " + currentSearch.getValue());
-
-            if(currentSearch.getKey().equalsIgnoreCase(endWord)){
-                return currentSearch.getValue();
-            }
-
-            ArrayList<String> possibleNewEntries = allPossibleVisitations.get(currentSearch.getKey());
-
-            for(String word : possibleNewEntries){
-
-                if(!visited.containsKey(word)){
-                    searchQueue.add(new SimpleEntry<>(word, currentSearch.getValue() + 1));
-                    visited.put(word, true);
-                }
-
-            }
-
-
-        }
-
-        return -1;
-    }
-
 
 
     public ArrayList<String> getPossibleVisitationsForWord(String word1, List<String> wordList){
