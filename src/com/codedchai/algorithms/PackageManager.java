@@ -17,7 +17,6 @@ class Package {
 /*
 If you have a package manager make sure that it installs the dependencies before the package itself can be installed
  */
-
 public class PackageManager {
 
     public static void main(String[] args){
